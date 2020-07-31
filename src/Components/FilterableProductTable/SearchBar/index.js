@@ -1,3 +1,4 @@
 import React from "react"
 
-export const SearchBar = () => <p>SearchBar</p>
+export const SearchBar = () =>
+<input type='Search'></input>

@@ -1,3 +1,4 @@
 import React from "react"
 
-export const ProductCategoryRow = () => <p>ProductCategoryRow</p>
+export const ProductCategoryRow = () =>
+<p>ProductCategoryRow</p>
