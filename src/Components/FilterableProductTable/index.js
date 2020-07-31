@@ -3,6 +3,8 @@ import React from "react"
 import { ProductTable } from "./ProductTable"
 import { SearchBar } from './SearchBar'
 
+import './FilterableProductTable.css'
+
 import api from "api"
 
 export class FilterableProductTable extends React.Component {
@@ -17,7 +19,7 @@ export class FilterableProductTable extends React.Component {
   }
 
   render() {
-  return <div>
+  return <div className="table">
       <p>FilterableProductTable</p>
       <ProductTable
         products={this.state.products}
