@@ -19,7 +19,9 @@ export class FilterableProductTable extends React.Component {
   render() {
   return <div>
       <p>FilterableProductTable</p>
-      <ProductTable />
+      <ProductTable
+        products={this.state.products}
+      />
       <SearchBar />
     </div>
 

@@ -1,3 +1,7 @@
 import React from "react"
 
-export const ProductRow = () => <p>ProductRow</p>
+export const ProductRow = ({name, price, i}) =>
+<tr>
+  <td>{name}</td>
+  <td>{price}</td>
+</tr>
