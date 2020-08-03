@@ -21,15 +21,15 @@ export class FilterableProductTable extends React.Component {
   }
 
   searchHandler = ({ target: { type, checked, value } }) => {
-    if (type === 'checkbox') {
-      this.setState({ inStockOnly: checked })
-    } else {
-      if (type === 'number') {
-        this.setState({ maxPrice: value })
-      } else {
-        //if the target is a check box, get the checked value and use setState.
-        this.setState({ searchText: value })
-      }
+    switch (type) {
+      case 'checkbox':
+        this.setState({inStockOnly: checked})
+        break;
+      case 'number':
+        this.setState({maxPrice: value})
+        break;
+      default:
+        this.setState({searchText: value})
     }
   }
 
