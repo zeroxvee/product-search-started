@@ -18,13 +18,17 @@ export class FilterableProductTable extends React.Component {
     this.setState({products: await api.index()})
   }
 
+  handleSearch = () => {
+
+  }
+
   render() {
   return <div className="table">
       <p>FilterableProductTable</p>
       <ProductTable
         products={this.state.products}
       />
-      <SearchBar />
+      <SearchBar value={this.setState()}/>
     </div>
 
   }

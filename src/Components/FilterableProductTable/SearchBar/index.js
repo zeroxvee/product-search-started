@@ -1,4 +1,7 @@
 import React from "react"
 
-export const SearchBar = () =>
-<input type='Search'></input>
+export const SearchBar = ({value}) =>
+
+
+
+<input type='Search' value=''></input>
