@@ -12,23 +12,31 @@ export class FilterableProductTable extends React.Component {
   state = {
     products: [],
     searchText: '',
+    inStockOnly: false,
   }
 
   async componentDidMount() {
-    this.setState({products: await api.index()})
+    this.setState({ products: await api.index() })
   }
 
-  handleSearch = () => {
-
+  searchHandler = ({ target }) => {
+    if (target.type === 'checkbox') {
+      this.setState({ inStockOnly: target.checked })
+    } else {
+      //if the target is a check box, get the checked value and use setState.
+      this.setState({ searchText: target.value })
+    }
   }
 
   render() {
-  return <div className="table">
+    const filteredProducts = this.state.products.filter(({ name }) =>
+      name.toLowerCase().startsWith(this.state.searchText.toLowerCase())).filter(({ stocked }) =>
+        this.state.inStockOnly ? stocked : true)
+
+    return <div className="table">
       <p>FilterableProductTable</p>
-      <ProductTable
-        products={this.state.products}
-      />
-      <SearchBar value={this.setState()}/>
+      <ProductTable products={filteredProducts} />
+      <SearchBar handler={this.searchHandler} />
     </div>
 
   }
