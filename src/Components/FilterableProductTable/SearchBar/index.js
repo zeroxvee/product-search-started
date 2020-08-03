@@ -1,7 +1,7 @@
 import PropType from 'prop-types'
 import React from "react"
 
-export const SearchBar = ({ handler }) => {
+export const SearchBar = ({ value, handler }) => {
 
   const handleChange = (event) => {
     handler(event)
@@ -9,16 +9,25 @@ export const SearchBar = ({ handler }) => {
 
   return (
     <div className="searchBar">
+      <label>Filter product
       <input type='search' onChange={handleChange} />
+      </label>
       <label>
-        <input type="checkbox" onChange={handleChange}/>
-  In Stock Only
-</label>
+        In Stock Only:
+        <input type="checkbox" onChange={handleChange} />
+
+      </label>
+      <br></br>
+      <label>
+        Max Price:
+        <input type="number" onChange={handleChange} value={value} />
+
+      </label>
     </div>
   )
 }
 
 SearchBar.propTypes = {
-  value: PropType.string,
+  value: PropType.number,
   handler: PropType.func,
 }
