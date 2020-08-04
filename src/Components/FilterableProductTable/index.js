@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 
 import { ProductTable } from "./ProductTable"
 import { SearchBar } from './SearchBar'
@@ -14,9 +14,13 @@ export const FilterableProductTable = () => {
   const [inStockOnly, SetInStockOnly] = useState(false)
   const [maxPrice, SetMaxPrice] = useState(null)
 
-  async componentDidMount() {
-    setProducts({ products: await api.index() })
-  }
+  useEffect(() => {
+
+    (async () => {
+      setProducts(await api.index())
+    })()
+
+  }, [])
 
   const searchHandler = ({ target: { type, checked, value } }) => {
     switch (type) {
@@ -34,13 +38,14 @@ export const FilterableProductTable = () => {
   // handlePrice = ({ target }) => {
   //   this.setState({ maxPrice: target.value })
   // }
+  // priceHandler={handlePrice}
 
-    const filteredProducts = products.filter(
-      ({ name }) => name.toLowerCase().startsWith(searchText.toLowerCase())).filter(({ stocked }) => inStockOnly ? stocked : true).filter(({price}) => maxPrice ? Number.parseFloat(price.slice(1)) <= maxPrice : true)
+  const filteredProducts = products.filter(
+    ({ name }) => name.toLowerCase().startsWith(searchText.toLowerCase())).filter(({ stocked }) => inStockOnly ? stocked : true).filter(({ price }) => maxPrice ? Number.parseFloat(price.slice(1)) <= maxPrice : true)
 
-    return <div className="table">
-      <p>FilterableProductTable</p>
-      <ProductTable products={filteredProducts} inStock={inStockOnly}/>
-      <SearchBar handler={searchHandler} priceHandler={handlePrice} value={maxPrice}/>
-    </div>
-  }
+  return <div className="table">
+    <p>FilterableProductTable</p>
+    <ProductTable products={filteredProducts} inStock={inStockOnly} />
+    <SearchBar handler={searchHandler} value={maxPrice} />
+  </div>
+}
