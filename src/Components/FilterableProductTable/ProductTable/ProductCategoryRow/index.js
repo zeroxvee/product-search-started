@@ -4,7 +4,7 @@ import React from "react"
 export const ProductCategoryRow = ({category}) =>
 (
   <tr>
-  <td className="cat">{category}</td>
+  <th className="cat">{category}</th>
   </tr>
 
 )

@@ -43,7 +43,7 @@ export class FilterableProductTable extends React.Component {
 
     return <div className="table">
       <p>FilterableProductTable</p>
-      <ProductTable products={filteredProducts} />
+      <ProductTable products={filteredProducts} inStock={this.state.inStockOnly}/>
       <SearchBar handler={this.searchHandler} priceHandler={this.handlePrice} value={this.state.maxPrice}/>
     </div>
     }
