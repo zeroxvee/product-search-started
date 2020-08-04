@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect} from "react"
 
 import { ProductTable } from "./ProductTable"
 import { SearchBar } from './SearchBar'
@@ -7,29 +7,27 @@ import './FilterableProductTable.css'
 
 import api from "api"
 
-export class FilterableProductTable extends React.Component {
+export const FilterableProductTable = () => {
 
-  state = {
-    products: [],
-    searchText: '',
-    inStockOnly: false,
-    maxPrice: null
-  }
+  const [products, setProducts] = useState([])
+  const [searchText, SetSearchText] = useState('')
+  const [inStockOnly, SetInStockOnly] = useState(false)
+  const [maxPrice, SetMaxPrice] = useState(null)
 
   async componentDidMount() {
-    this.setState({ products: await api.index() })
+    setProducts({ products: await api.index() })
   }
 
-  searchHandler = ({ target: { type, checked, value } }) => {
+  const searchHandler = ({ target: { type, checked, value } }) => {
     switch (type) {
       case 'checkbox':
-        this.setState({inStockOnly: checked})
+        SetInStockOnly(checked)
         break;
       case 'number':
-        this.setState({maxPrice: value})
+        SetMaxPrice(value)
         break;
       default:
-        this.setState({searchText: value})
+        SetSearchText(value)
     }
   }
 
@@ -37,14 +35,12 @@ export class FilterableProductTable extends React.Component {
   //   this.setState({ maxPrice: target.value })
   // }
 
-  render() {
-    const filteredProducts = this.state.products.filter(
-      ({ name }) => name.toLowerCase().startsWith(this.state.searchText.toLowerCase())).filter(({ stocked }) => this.state.inStockOnly ? stocked : true).filter(({price}) => this.state.maxPrice ? Number.parseFloat(price.slice(1)) <= this.state.maxPrice : true)
+    const filteredProducts = products.filter(
+      ({ name }) => name.toLowerCase().startsWith(searchText.toLowerCase())).filter(({ stocked }) => inStockOnly ? stocked : true).filter(({price}) => maxPrice ? Number.parseFloat(price.slice(1)) <= maxPrice : true)
 
     return <div className="table">
       <p>FilterableProductTable</p>
-      <ProductTable products={filteredProducts} inStock={this.state.inStockOnly}/>
-      <SearchBar handler={this.searchHandler} priceHandler={this.handlePrice} value={this.state.maxPrice}/>
+      <ProductTable products={filteredProducts} inStock={inStockOnly}/>
+      <SearchBar handler={searchHandler} priceHandler={handlePrice} value={maxPrice}/>
     </div>
-    }
   }
